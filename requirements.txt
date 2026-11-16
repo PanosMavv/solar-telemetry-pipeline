@@ -1,0 +1,11 @@
+# Solar Panel Telemetry Pipeline - dependencies
+# Install:  py -3 -m venv .venv && .venv\Scripts\pip install -r requirements.txt
+
+pydantic>=2.7.0,<3.0
+pydantic-settings>=2.2.0
+fastapi>=0.104.0,<1.0
+uvicorn>=0.27.0
+sqlalchemy>=2.0.0,<3.0
+tenacity>=8.2.0
+httpx>=0.26.0          # simulator HTTP client + TestClient
+pytest>=8.0.0

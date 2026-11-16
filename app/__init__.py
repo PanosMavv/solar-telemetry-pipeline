@@ -1,0 +1,1 @@
+"""Solar Panel Telemetry Pipeline."""
