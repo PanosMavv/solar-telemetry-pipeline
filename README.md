@@ -6,20 +6,20 @@ default), strictly validates it, computes derived fields (`power_w`, `efficiency
 and persists the clean records to SQLite.
 
 ```
-┌──────────────────┐        ┌───────────────────────────────────────────────────────┐
-│  Solar panels    │──────►│  Ingestion (FastAPI  POST /ingest/telemetry)          │
-│  (simulated 1/s  │       │                                                       │
-│   or 5 s via    │──────►│  1. Pydantic strict validation                       │
-│  HTTP simulator) │       │     • wrong types / nulls / missing keys  → discard  │
-│                  │       │     • negative irradiance / unparseable ts  → discard │
-│                  │       │  2. Derived fields (processor)                      │
-│                  │       │     • power_w      = voltage_v * current_a           │
-│                  │       │     • efficiency   = power/(irradiance*area) * 100   │
-│                  │       │  3. SQLite persistence (database)                   │
-│                  │       │     • solar_telemetry table                         │
-│                  │       │     • tenacity retry x3 + exponential backoff        │
-└──────────────────┘        │       (dropped connection → fresh session each try) │
-                            └───────────────────────────────────────────────────────┘
+┌──────────────────┐       ┌────────────────────────────────────────────────────────┐
+│  Solar panels    │──────►│  Ingestion (FastAPI  POST /ingest/telemetry)           │
+│  (simulated 1/s  │       │                                                        │
+│   or 5 s via     │──────►│  1. Pydantic strict validation                         │
+│  HTTP simulator) │       │     • wrong types / nulls / missing keys  → discard    │
+│                  │       │     • negative irradiance / unparseable ts  → discard  │
+│                  │       │  2. Derived fields (processor)                         │
+│                  │       │     • power_w      = voltage_v * current_a             │
+│                  │       │     • efficiency   = power/(irradiance*area) * 100     │
+│                  │       │  3. SQLite persistence (database)                      │
+│                  │       │     • solar_telemetry table                            │
+│                  │       │     • tenacity retry x3 + exponential backoff          │
+└──────────────────┘       │       (dropped connection → fresh session each try)    │
+                           └────────────────────────────────────────────────────────┘
 ```
 
 ## Project structure
